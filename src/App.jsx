@@ -36,7 +36,7 @@ const questions = [
     AreOptionsImage: false,
   },
   {
-    q: `<img class="photo" src=${img4} /> <br> Which monument is this?`,
+    q: `<img class="photo" src=${img4} /> Which monument is this?`,
     opt: ["Taj Mahal", "Red Fort", "Qutub Minar", "Ram Mandir"],
     correct: "Ram Mandir",
     hasImage: true,
@@ -105,45 +105,52 @@ const Quiz = () => {
 
   if (quizFinished) {
     return (
-      <div className="quiz-container">
-        <h1>Quiz App</h1>
-        <h2>Your score is: {score}</h2>
+      <div className="w-full h-screen flex items-center justify-center">
+        <div className="quiz-container h-[80vh]">
+          <h1 className="text-5xl mb-5">Quiz App</h1>
+          <h2>Your score is: {score}</h2>
+        </div>
       </div>
     );
   }
 
   return (
-    <div className="quiz-container w-full h-screen ">
-      <h1 className="text-5xl mb-5">Quiz App</h1>
-      <div className="tracker">
-        {shuffledQuestions.map((q, index) => (
-          <span
-            key={index}
-            className={`tracker-item ${
-              index === currentQuestionIndex ? "active" : ""
-            }`}
-          >
-            {index + 1}
-          </span>
-        ))}
-      </div>
-      <div className="timer">Time left: {timeLeft} seconds</div>
-      <div className="question">
-        {currentQuestion.hasImage ? (
-          <div dangerouslySetInnerHTML={{ __html: currentQuestion.q }} />
-        ) : (
-          currentQuestion.q
-        )}
-      </div>
-      <div className="options">
-        {currentQuestion.opt.map((option, index) => (
-          <button
-            key={index}
-            onClick={() => handleOptionClick(option)}
-            className={selectedOption === option ? "selected" : ""}
-            dangerouslySetInnerHTML={{ __html: option }}
-          />
-        ))}
+    <div className="w-full h-screen flex items-center justify-center">
+      <div className="quiz-container h-[80vh]">
+        <h1 className="text-5xl mb-5">Quiz App</h1>
+        <div className="tracker">
+          {shuffledQuestions.map((q, index) => (
+            <span
+              key={index}
+              className={`tracker-item ${
+                index === currentQuestionIndex ? "active" : ""
+              }`}
+            >
+              {index + 1}
+            </span>
+          ))}
+        </div>
+        <div className="timer">Time left: {timeLeft} seconds</div>
+        <div className="question w-full">
+          {currentQuestion.hasImage ? (
+            <div
+              className="w-full h-full flex justify-center items-center flex-col"
+              dangerouslySetInnerHTML={{ __html: currentQuestion.q }}
+            />
+          ) : (
+            <h1 className="text-center">{currentQuestion.q}?</h1>
+          )}
+        </div>
+        <div className="options flex flex-wrap justify-center shrink-0 w-[50%]">
+          {currentQuestion.opt.map((option, index) => (
+            <button
+              key={index}
+              onClick={() => handleOptionClick(option)}
+              className={selectedOption === option ? "selected" : ""}
+              dangerouslySetInnerHTML={{ __html: option }}
+            />
+          ))}
+        </div>
       </div>
     </div>
   );

@@ -38,13 +38,13 @@ body {
   justify-content: center;
   margin: 0 5px;
   border-radius: 50%;
-  background-color: #000;
-  color: #fff;
+  background-color: #d3d3d3;
+  color: #000;
 }
 
 .tracker-item.active {
-  background-color: #d3d3d3;
-  color: #000;
+  background-color: #000;
+  color: #fff;
 }
 
 .timer {
@@ -59,9 +59,10 @@ body {
 
 .question img {
   max-width: 150px;
+  /* background-color: ; */
   height: auto;
-  margin-top: 10px;
-  border: 2px solid #4CAF50;
+  /* margin-top: 10px; */
+  border: 4px solid #4CAF50;
   border-radius: 5px;
 }
 
@@ -74,19 +75,19 @@ body {
 .options button {
   margin: 5px;
   padding: 10px 20px;
+  width: 12vw;
   font-size: 1em;
   cursor: pointer;
   border: none;
   border-radius: 5px;
-  background-color: #4CAF50;
+  background-color: #4caf4fcf;
   color: white;
   transition: background-color 0.3s;
 }
 
 .options button img {
-  max-width: 150px;  /* Set a maximum width for images */
-  height: auto;  /* Maintain aspect ratio */
-  border: 2px solid transparent;
+  max-width: 150px; 
+  height: auto; 
   border-radius: 5px;
 }
 
@@ -95,12 +96,12 @@ body {
 }
 
 .options button.selected {
-  background-color: black;
+  background-color: green;
   color: white;
 }
 
 .options button:hover {
-  background-color: #45a049;
+  background-color: green;
 }
 
 h2 {
