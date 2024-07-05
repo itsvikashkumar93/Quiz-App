@@ -1,0 +1,114 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html,
+body {
+  height: 100%;
+  width: 100%;
+  background-color: #fef5e7;
+}
+
+.quiz-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: 50px;
+  padding: 20px;
+  border-radius: 10px;
+}
+
+.tracker {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 20px;
+}
+
+.tracker-item {
+  width: 30px;
+  height: 30px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 5px;
+  border-radius: 50%;
+  background-color: #000;
+  color: #fff;
+}
+
+.tracker-item.active {
+  background-color: #d3d3d3;
+  color: #000;
+}
+
+.timer {
+  font-size: 1.2em;
+  margin-bottom: 10px;
+}
+
+.question {
+  font-size: 1.5em;
+  margin-bottom: 20px;
+}
+
+.question img {
+  max-width: 150px;
+  height: auto;
+  margin-top: 10px;
+  border: 2px solid #4CAF50;
+  border-radius: 5px;
+}
+
+.options {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.options button {
+  margin: 5px;
+  padding: 10px 20px;
+  font-size: 1em;
+  cursor: pointer;
+  border: none;
+  border-radius: 5px;
+  background-color: #4CAF50;
+  color: white;
+  transition: background-color 0.3s;
+}
+
+.options button img {
+  max-width: 150px;  /* Set a maximum width for images */
+  height: auto;  /* Maintain aspect ratio */
+  border: 2px solid transparent;
+  border-radius: 5px;
+}
+
+.options button.selected img {
+  border-color: black;
+}
+
+.options button.selected {
+  background-color: black;
+  color: white;
+}
+
+.options button:hover {
+  background-color: #45a049;
+}
+
+h2 {
+  font-size: 2em;
+  color: green;
+}
+
+button[disabled] {
+  cursor: not-allowed;
+  background-color: #ddd;
+}
