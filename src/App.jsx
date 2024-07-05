@@ -5,6 +5,8 @@ import img2 from "./assets/Golden_temple.jpg";
 import img3 from "./assets/Hawa_mahal.jpg";
 import img4 from "./assets/Ram_mandir.jpg";
 import img5 from "./assets/Red_fort.jpg";
+import Header from "./components/Header";
+import Leaderboard from "./components/Leaderboard";
 
 const questions = [
   {
@@ -63,6 +65,13 @@ const Quiz = () => {
   const [timeLeft, setTimeLeft] = useState(5);
   const [selectedOption, setSelectedOption] = useState(null);
   const [quizFinished, setQuizFinished] = useState(false);
+  const [players, setPlayers] = useState(
+    localStorage.getItem("players") !== null
+      ? JSON.parse(localStorage.getItem("players"))
+      : []
+  );
+  const [tempName, setTempName] = useState("");
+  const [playerName, setPlayerName] = useState(null);
 
   useEffect(() => {
     const shuffled = questions.sort(() => Math.random() - 0.5);
@@ -70,7 +79,7 @@ const Quiz = () => {
   }, []);
 
   useEffect(() => {
-    if (timeLeft > 0 && !quizFinished) {
+    if (playerName !== null && timeLeft > 0 && !quizFinished) {
       const timer = setTimeout(() => setTimeLeft(timeLeft - 1), 1000);
       return () => clearTimeout(timer);
     } else if (timeLeft === 0) {
@@ -79,7 +88,7 @@ const Quiz = () => {
       }
       handleNextQuestion();
     }
-  }, [timeLeft, quizFinished, selectedOption]);
+  }, [timeLeft, quizFinished, selectedOption, playerName]);
 
   const handleOptionClick = (option) => {
     if (selectedOption === null) {
@@ -97,6 +106,31 @@ const Quiz = () => {
     }
   };
 
+  const addPlayerToStorage = () => {
+    if (localStorage) {
+      let obj = {};
+      let players = [];
+      if (localStorage.getItem("players") !== null) {
+        players = JSON.parse(localStorage.getItem("players"));
+        obj = {
+          id: Date.now(),
+          name: tempName,
+          score: 0,
+        };
+      } else {
+        obj = {
+          id: Date.now(),
+          name: tempName,
+          score: 0,
+        };
+      }
+      players.push(obj);
+      localStorage.setItem("players", JSON.stringify(players));
+      setPlayerName(tempName);
+      setTempName("");
+    }
+  };
+
   if (shuffledQuestions.length === 0) {
     return <div>Loading...</div>;
   }
@@ -105,17 +139,43 @@ const Quiz = () => {
 
   if (quizFinished) {
     return (
+      <>
+      <Header playerName={playerName} />
       <div className="w-full h-screen flex items-center justify-center">
         <div className="quiz-container h-[80vh]">
           <h1 className="text-5xl mb-5">Quiz App</h1>
           <h2>Your score is: {score}</h2>
         </div>
+        <Leaderboard />
+      </div>
+      </>
+    );
+  }
+
+  if (playerName === null) {
+    return (
+      <div className="quiz-container w-full h-screen">
+        <h1 className="text-5xl mb-5">Quiz App</h1>
+        <input
+          className="px-4 py-1 rounded-lg w-80 my-6 h-16 text-lg "
+          type="text"
+          placeholder="Enter your name, player"
+          value={tempName}
+          onChange={(e) => setTempName(e.target.value)}
+        />
+        <button
+          onClick={addPlayerToStorage}
+          className="bg-green-800 rounded border-solid border-green-800 hover:bg-white hover:text-black hover:border-solid hover-border-green-800 text-white py-2 px-4"
+        >
+          Start the Quiz
+        </button>
       </div>
     );
   }
 
   return (
-    <div className="w-full h-screen flex items-center justify-center">
+    <div className="w-full h-screen relative flex flex-row-reverse items-center justify-center">
+      <Header playerName={playerName} />
       <div className="quiz-container h-[80vh]">
         <h1 className="text-5xl mb-5">Quiz App</h1>
         <div className="tracker">
